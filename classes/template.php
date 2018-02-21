@@ -49,16 +49,19 @@ class template {
      * @var int $contextid The context id of this template
      */
     protected $contextid;
+    
+    public $code;
 
     /**
      * The constructor.
      *
      * @param \stdClass $template
      */
-    public function __construct($template) {
+    public function __construct($template, $code='') {
         $this->id = $template->id;
         $this->name = $template->name;
         $this->contextid = $template->contextid;
+        $this->code = $code;
     }
 
     /**
@@ -282,7 +285,11 @@ class template {
             $pdf->SetTitle($this->name);
             $pdf->SetAutoPageBreak(true, 0);
             // Remove full-stop at the end, if it exists, to avoid "..pdf" being created and being filtered by clean_filename.
-            $filename = rtrim($this->name, '.');
+            if(strlen(trim($this->code))>0){
+                $filename = rtrim($this->code, '.');
+            }else{
+                $filename = rtrim($this->name, '.');
+            }
             $filename = clean_filename($filename . '.pdf');
             // Loop through the pages and display their content.
             foreach ($pages as $page) {

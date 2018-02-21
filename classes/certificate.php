@@ -429,21 +429,25 @@ class certificate {
      */
     public static function generate_code($customcertid = 0, $userid = 0) {
         global $DB;
-        $code = '';
-        $objCustumCert = $DB->get_record('customcert',['id'=>$customcertid]);
-        if(is_object($objCustumCert)){
-            $code = $objCustumCert->certificate_zona.'-'.str_pad((int) self::getNextIndexIssues($customcertid),3,"0",STR_PAD_LEFT).'-'.$objCustumCert->int_year.'-'.$objCustumCert->chr_coursetype;
+        //verificamos si el código existe en el registro
+        $objIssue = $DB->get_record('customcert_issues', array('customcertid'=>$customcertid, 'userid'=>$userid), '*', IGNORE_MULTIPLE);
+        $uniquecodefound = false;
+        if (is_object($objIssue)) {
+            $uniquecodefound = true;
         }
-//        $uniquecodefound = false;
-//        $code = random_string(10);
-//        while (!$uniquecodefound) {
-//            if (!$DB->record_exists('customcert_issues', array('code' => $code))) {
-//                $uniquecodefound = true;
-//            } else {
-//                $code = random_string(10);
-//            }
-//        }
 
+        //obtenemos el código
+        if($uniquecodefound){
+            $code = $objIssue->code;
+            error_log(print_r($objIssue, true));
+        }else{
+            //obtneemos el código
+            $code = '';
+            $objCustumCert = $DB->get_record('customcert',['id'=>$customcertid]);
+            if(is_object($objCustumCert)){
+                $code = $objCustumCert->certificate_zona.'-'.str_pad((int) self::getNextIndexIssues($customcertid),3,"0",STR_PAD_LEFT).'-'.$objCustumCert->int_year.'-'.$objCustumCert->chr_coursetype;
+            }            
+        }
         return $code;
     }
     

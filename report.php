@@ -31,6 +31,7 @@ $deleteissue = optional_param('deleteissue', 0, PARAM_INT);
 $confirm = optional_param('confirm', 0, PARAM_BOOL);
 if ($downloadcert) {
     $userid = required_param('userid', PARAM_INT);
+    
 }
 
 $page = optional_param('page', 0, PARAM_INT);
@@ -85,7 +86,8 @@ if ($deleteissue && confirm_sesskey()) {
 // Check if we requested to download another user's certificate.
 if ($downloadcert) {
     $template = $DB->get_record('customcert_templates', array('id' => $customcert->templateid), '*', MUST_EXIST);
-    $template = new \mod_customcert\template($template);
+    $code = \mod_customcert\certificate::generate_code($customcert->id, $userid);
+    $template = new \mod_customcert\template($template, $code);
     $template->generate_pdf(false, $userid);
     exit();
 }

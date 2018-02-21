@@ -23,7 +23,7 @@
  */
 
 require_once('../../config.php');
-
+global $USER;
 $id = required_param('id', PARAM_INT);
 $action = optional_param('action', '', PARAM_ALPHA);
 
@@ -31,6 +31,8 @@ $cm = get_coursemodule_from_id('customcert', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $customcert = $DB->get_record('customcert', array('id' => $cm->instance), '*', MUST_EXIST);
 $template = $DB->get_record('customcert_templates', array('id' => $customcert->templateid), '*', MUST_EXIST);
+
+$code = \mod_customcert\certificate::generate_code($customcert->id, $USER->id);
 
 // Ensure the user is allowed to view this page.
 require_login($course, false, $cm);
@@ -140,7 +142,7 @@ if (empty($action)) {
     }
 
     // Now we want to generate the PDF.
-    $template = new \mod_customcert\template($template);
+    $template = new \mod_customcert\template($template, $code);
     $template->generate_pdf();
     exit();
 }
