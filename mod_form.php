@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of the customcert module for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,10 +22,9 @@
  * @copyright  2013 Mark Nelson <markn@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
 
-require_once($CFG->dirroot.'/course/moodleform_mod.php');
+require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 /**
  * Instance add/edit form.
@@ -41,7 +41,7 @@ class mod_customcert_mod_form extends moodleform_mod {
     public function definition() {
         global $CFG;
 
-        $mform =& $this->_form;
+        $mform = & $this->_form;
 
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
@@ -53,6 +53,37 @@ class mod_customcert_mod_form extends moodleform_mod {
         }
         $mform->addRule('name', null, 'required', null, 'client');
 
+        //inputs para cada creación del plugin
+        //input para ingresar el año
+        $mform->addElement('text', 'int_year', get_string('certificate_year', 'customcert'), array('size' => '4'));
+        $mform->setType('int_year', PARAM_INT);
+        $mform->addRule('int_year', null, 'required', null, 'client');
+        //input para el tipo de curso
+        $arrayTypeCourse['REG'] = get_string('certificate_administered','customcert');
+        $arrayTypeCourse['REG/CER'] = get_string('certificate_registered','customcert');
+        $mform->addElement('select', 'chr_coursetype', get_string('certificate_typeCourse', 'customcert'),$arrayTypeCourse);
+        $mform->setType('chr_coursetype', PARAM_TEXT);
+        $mform->addRule('chr_coursetype', null, 'required', null, 'client');
+        //inputs para las zonas
+        $arrayZona['SC'] = get_string('certificate_zona_sedeCentral','customcert');
+        $arrayZona['ZRI'] = get_string('certificate_zona_zonaRegistralI','customcert');
+        $arrayZona['ZRII'] = get_string('certificate_zona_zonaRegistralII','customcert');
+        $arrayZona['ZRIII'] = get_string('certificate_zona_zonaRegistralIII','customcert');
+        $arrayZona['ZRIV'] = get_string('certificate_zona_zonaRegistralIV','customcert');
+        $arrayZona['ZRV'] = get_string('certificate_zona_zonaRegistralV','customcert');
+        $arrayZona['ZRVI'] = get_string('certificate_zona_zonaRegistralVI','customcert');
+        $arrayZona['ZRVII'] = get_string('certificate_zona_zonaRegistralVII','customcert');
+        $arrayZona['ZRVIII'] = get_string('certificate_zona_zonaRegistralVIII','customcert');
+        $arrayZona['ZRIX'] = get_string('certificate_zona_zonaRegistralIX','customcert');
+        $arrayZona['ZRX'] = get_string('certificate_zona_zonaRegistralX','customcert');
+        $arrayZona['ZRXI'] = get_string('certificate_zona_zonaRegistralXI','customcert');
+        $arrayZona['ZRXII'] = get_string('certificate_zona_zonaRegistralXII','customcert');
+        $arrayZona['ZRXIII'] = get_string('certificate_zona_zonaRegistralXIII','customcert');
+        $arrayZona['ZRXIV'] = get_string('certificate_zona_zonaRegistralXIV','customcert');
+        $mform->addElement('select', 'certificate_zona', get_string('certificate_zona', 'customcert'),$arrayZona);
+        $mform->setType('certificate_zona', PARAM_TEXT);
+        $mform->addRule('certificate_zona', null, 'required', null, 'client');
+        
         $this->standard_intro_elements(get_string('description', 'customcert'));
 
         $mform->addElement('header', 'options', get_string('options', 'customcert'));
@@ -77,8 +108,7 @@ class mod_customcert_mod_form extends moodleform_mod {
         $mform->setType('requiredtime', PARAM_INT);
         $mform->addHelpButton('requiredtime', 'coursetimereq', 'customcert');
 
-        $mform->addElement('checkbox', 'protection_print', get_string('setprotection', 'customcert'),
-            get_string('print', 'customcert'));
+        $mform->addElement('checkbox', 'protection_print', get_string('setprotection', 'customcert'), get_string('print', 'customcert'));
         $mform->addElement('checkbox', 'protection_modify', '', get_string('modify', 'customcert'));
         $mform->addElement('checkbox', 'protection_copy', '', get_string('copy', 'customcert'));
         $mform->addHelpButton('protection_print', 'setprotection', 'customcert');
@@ -125,7 +155,7 @@ class mod_customcert_mod_form extends moodleform_mod {
                 $errors['requiredtime'] = get_string('requiredtimenotvalid', 'customcert');
             }
         }
-
         return $errors;
     }
+
 }

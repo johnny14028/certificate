@@ -171,3 +171,26 @@ $string['verifycertificateanyone_help'] = 'This setting enables anyone with the 
 $string['viewcustomcertissues'] = 'View {$a} issued certificates';
 $string['width'] = 'Width';
 $string['width_help'] = 'This is the width of the certificate PDF in mm. For reference an A4 piece of paper is 210mm wide and a letter is 216mm wide.';
+
+$string['certificate_typeCourse'] = 'Course type';
+$string['certificate_administered'] = 'Administrable';
+$string['certificate_registered'] = 'Registral';
+$string['certificate_year'] = 'Año';
+$string['certificate_zona'] = 'Zona';
+$string['certificate_requiredyearnotvalid'] = 'Año no válido';
+
+$string['certificate_zona_sedeCentral'] = 'Sede Central';
+$string['certificate_zona_zonaRegistralI'] = 'Zona Registral Nº I';
+$string['certificate_zona_zonaRegistralII'] = 'Zona Registral Nº II';
+$string['certificate_zona_zonaRegistralIII'] = 'Zona Registral Nº III';
+$string['certificate_zona_zonaRegistralIV'] = 'Zona Registral Nº IV';
+$string['certificate_zona_zonaRegistralV'] = 'Zona Registral Nº V';
+$string['certificate_zona_zonaRegistralVI'] = 'Zona Registral Nº VI';
+$string['certificate_zona_zonaRegistralVII'] = 'Zona Registral Nº VII';
+$string['certificate_zona_zonaRegistralVIII'] = 'Zona Registral Nº VIII';
+$string['certificate_zona_zonaRegistralIX'] = 'Zona Registral Nº IX';
+$string['certificate_zona_zonaRegistralX'] = 'Zona Registral Nº X';
+$string['certificate_zona_zonaRegistralXI'] = 'Zona Registral Nº XI';
+$string['certificate_zona_zonaRegistralXII'] = 'Zona Registral Nº XII';
+$string['certificate_zona_zonaRegistralXIII'] = 'Zona Registral Nº XIII';
+$string['certificate_zona_zonaRegistralXIV'] = 'Zona Registral Nº XIV';
