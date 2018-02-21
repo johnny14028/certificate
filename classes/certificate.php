@@ -439,7 +439,6 @@ class certificate {
         //obtenemos el código
         if($uniquecodefound){
             $code = $objIssue->code;
-            error_log(print_r($objIssue, true));
         }else{
             //obtneemos el código
             $code = '';
