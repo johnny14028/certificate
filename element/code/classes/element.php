@@ -46,7 +46,12 @@ class element extends \mod_customcert\element {
         global $DB;
 
         if ($preview) {
-            $code = \mod_customcert\certificate::generate_code();
+            // Get the page.
+            $page = $DB->get_record('customcert_pages', array('id' => $this->get_pageid()), '*', MUST_EXIST);
+            // Get the customcert this page belongs to.
+            $customcert = $DB->get_record('customcert', array('templateid' => $page->templateid), '*', MUST_EXIST);
+            
+            $code = \mod_customcert\certificate::generate_code($customcert->id, $user->id);
         } else {
             // Get the page.
             $page = $DB->get_record('customcert_pages', array('id' => $this->get_pageid()), '*', MUST_EXIST);
@@ -70,7 +75,13 @@ class element extends \mod_customcert\element {
      * @return string the html
      */
     public function render_html() {
-        $code = \mod_customcert\certificate::generate_code();
+        global $DB, $USER;
+        // Get the page.
+        $page = $DB->get_record('customcert_pages', array('id' => $this->get_pageid()), '*', MUST_EXIST);
+        // Get the customcert this page belongs to.
+        $customcert = $DB->get_record('customcert', array('templateid' => $page->templateid), '*', MUST_EXIST);  
+        
+        $code = \mod_customcert\certificate::generate_code($customcert->id, $USER->id);
 
         return \mod_customcert\element_helper::render_html_content($this, $code);
     }

@@ -124,7 +124,7 @@ if (empty($action)) {
         $customcertissue = new stdClass();
         $customcertissue->customcertid = $customcert->id;
         $customcertissue->userid = $USER->id;
-        $customcertissue->code = \mod_customcert\certificate::generate_code();
+        $customcertissue->code = \mod_customcert\certificate::generate_code($customcert->id, $USER->id);
         $customcertissue->timecreated = time();
         // Insert the record into the database.
         $DB->insert_record('customcert_issues', $customcertissue);

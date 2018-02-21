@@ -129,7 +129,7 @@ class email_certificate_task extends \core\task\scheduled_task {
                     $customcertissue = new \stdClass();
                     $customcertissue->customcertid = $customcert->id;
                     $customcertissue->userid = $enroluser->id;
-                    $customcertissue->code = \mod_customcert\certificate::generate_code();
+                    $customcertissue->code = \mod_customcert\certificate::generate_code($customcert->id,$enroluser->id);
                     $customcertissue->emailed = 0;
                     $customcertissue->timecreated = time();
 

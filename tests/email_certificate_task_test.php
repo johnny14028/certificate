@@ -74,7 +74,7 @@ class mod_customcert_task_email_certificate_task_testcase extends advanced_testc
         $customcertissue = new stdClass();
         $customcertissue->customcertid = $customcert->id;
         $customcertissue->userid = $user1->id;
-        $customcertissue->code = \mod_customcert\certificate::generate_code();
+        $customcertissue->code = \mod_customcert\certificate::generate_code($customcert->id, $user1->id);
         $customcertissue->timecreated = time();
         $customcertissue->emailed = 0;
 

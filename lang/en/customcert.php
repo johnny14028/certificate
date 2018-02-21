@@ -172,7 +172,7 @@ $string['viewcustomcertissues'] = 'View {$a} issued certificates';
 $string['width'] = 'Width';
 $string['width_help'] = 'This is the width of the certificate PDF in mm. For reference an A4 piece of paper is 210mm wide and a letter is 216mm wide.';
 
-$string['certificate_typeCourse'] = 'Course type';
+$string['certificate_typeCourse'] = 'Tipo de curso';
 $string['certificate_administered'] = 'Administrable';
 $string['certificate_registered'] = 'Registral';
 $string['certificate_year'] = 'Año';

@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of the customcert module for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -426,19 +427,31 @@ class certificate {
      *
      * @return string
      */
-    public static function generate_code() {
+    public static function generate_code($customcertid = 0, $userid = 0) {
         global $DB;
-
-        $uniquecodefound = false;
-        $code = random_string(10);
-        while (!$uniquecodefound) {
-            if (!$DB->record_exists('customcert_issues', array('code' => $code))) {
-                $uniquecodefound = true;
-            } else {
-                $code = random_string(10);
-            }
+        $code = '';
+        $objCustumCert = $DB->get_record('customcert',['id'=>$customcertid]);
+        if(is_object($objCustumCert)){
+            $code = $objCustumCert->certificate_zona.'-'.str_pad((int) self::getNextIndexIssues($customcertid),3,"0",STR_PAD_LEFT).'-'.$objCustumCert->int_year.'-'.$objCustumCert->chr_coursetype;
         }
+//        $uniquecodefound = false;
+//        $code = random_string(10);
+//        while (!$uniquecodefound) {
+//            if (!$DB->record_exists('customcert_issues', array('code' => $code))) {
+//                $uniquecodefound = true;
+//            } else {
+//                $code = random_string(10);
+//            }
+//        }
 
         return $code;
     }
+    
+    public static function getNextIndexIssues($customcertid=0){
+        global $DB;
+        $returnValue = 0;
+        $returnValue = $DB->count_records('customcert_issues',array('customcertid'=>$customcertid));
+        return $returnValue +1;
+    }
+
 }
