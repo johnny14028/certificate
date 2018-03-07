@@ -178,6 +178,9 @@ $string['certificate_registered'] = 'Registral';
 $string['certificate_year'] = 'Año';
 $string['certificate_zona'] = 'Zona';
 $string['certificate_requiredyearnotvalid'] = 'Año no válido';
+$string['certificate_constancia'] = 'Constancia';
+$string['certificate_certificado'] = 'Certificado';
+$string['certificate_typeCertificate'] = 'Tipo de certificado';
 
 $string['certificate_zona_sedeCentral'] = 'Sede Central';
 $string['certificate_zona_zonaRegistralI'] = 'Zona Registral Nº I';

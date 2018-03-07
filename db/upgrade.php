@@ -34,6 +34,22 @@ function xmldb_customcert_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager();
+    
+    if ($oldversion < 2017111301) {
+
+        // Define field chr_certificatetype to be added to customcert.
+        $table = new xmldb_table('customcert');
+        $field = new xmldb_field('chr_certificatetype', XMLDB_TYPE_CHAR, '5', null, null, null, 'CER', 'certificate_zona');
+
+        // Conditionally launch add field chr_certificatetype.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Customcert savepoint reached.
+        upgrade_mod_savepoint(true, 2017111301, 'customcert');
+    }
+    
 
     if ($oldversion < 2016120503) {
 

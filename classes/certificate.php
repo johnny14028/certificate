@@ -444,17 +444,25 @@ class certificate {
             $code = '';
             $objCustumCert = $DB->get_record('customcert',['id'=>$customcertid]);
             if(is_object($objCustumCert)){
-                $code = $objCustumCert->certificate_zona.'-'.str_pad((int) self::getNextIndexIssues($customcertid),3,"0",STR_PAD_LEFT).'-'.$objCustumCert->int_year.'-'.$objCustumCert->chr_coursetype;
+                if($objCustumCert->chr_coursetype=='ADM'){
+                    $code = $objCustumCert->certificate_zona.'-'.str_pad((int) self::getNextIndexIssues($customcertid),3,"0",STR_PAD_LEFT).'-'.$objCustumCert->int_year.'-'.$objCustumCert->chr_certificatetype;
+                }else{
+                    $code = $objCustumCert->certificate_zona.'-'.str_pad((int) self::getNextIndexIssues($customcertid),3,"0",STR_PAD_LEFT).'-'.$objCustumCert->int_year.'-'.$objCustumCert->chr_coursetype.'/'.$objCustumCert->chr_certificatetype;
+                }
             }            
         }
         return $code;
     }
     
     public static function getNextIndexIssues($customcertid=0){
-        global $DB;
+        global $DB, $CFG;
         $returnValue = 0;
-        $returnValue = $DB->count_records('customcert_issues',array('customcertid'=>$customcertid));
-        return $returnValue +1;
+        $returnValue = $DB->get_field_sql("SELECT `AUTO_INCREMENT`
+        FROM  INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = '".$CFG->dbname."'
+        AND   TABLE_NAME   = 'mdl_customcert_issues'");
+        //$returnValue = $DB->count_records('customcert_issues',array('customcertid'=>$customcertid));
+        return $returnValue;
     }
 
 }

@@ -55,15 +55,21 @@ class mod_customcert_mod_form extends moodleform_mod {
 
         //inputs para cada creación del plugin
         //input para ingresar el año
-        $mform->addElement('text', 'int_year', get_string('certificate_year', 'customcert'), array('size' => '4'));
+        $mform->addElement('text', 'int_year', get_string('certificate_year', 'customcert'), array('size' => '4','value'=>date("Y")));
         $mform->setType('int_year', PARAM_INT);
         $mform->addRule('int_year', null, 'required', null, 'client');
         //input para el tipo de curso
-        $arrayTypeCourse['REG'] = get_string('certificate_administered','customcert');
-        $arrayTypeCourse['REG/CER'] = get_string('certificate_registered','customcert');
+        $arrayTypeCourse['ADM'] = get_string('certificate_administered','customcert');
+        $arrayTypeCourse['REG'] = get_string('certificate_registered','customcert');
         $mform->addElement('select', 'chr_coursetype', get_string('certificate_typeCourse', 'customcert'),$arrayTypeCourse);
         $mform->setType('chr_coursetype', PARAM_TEXT);
         $mform->addRule('chr_coursetype', null, 'required', null, 'client');
+        //input para el tipo de certificados
+        $arrayTypeCertificate['CON'] = get_string('certificate_constancia','customcert');
+        $arrayTypeCertificate['CER'] = get_string('certificate_certificado','customcert');
+        $mform->addElement('select', 'chr_certificatetype', get_string('certificate_typeCertificate', 'customcert'),$arrayTypeCertificate);
+        $mform->setType('chr_certificatetype', PARAM_TEXT);
+        $mform->addRule('chr_certificatetype', null, 'required', null, 'client');
         //inputs para las zonas
         $arrayZona['SC'] = get_string('certificate_zona_sedeCentral','customcert');
         $arrayZona['ZRI'] = get_string('certificate_zona_zonaRegistralI','customcert');
